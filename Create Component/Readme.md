@@ -73,5 +73,4 @@ namespace BlazorDemoApp.Pages
 
 #### Summary
 Component is core item in Blazor just like mordern client framework (such as Angular). Here I have describe, three methods for creating component in Blazor. Many more methods may add in upcoming release. Currently Blazor is an experimental project and it is not in Production yet.
-
-You can view or download the source code from the GitHub link here. https://github.com/jignesht24/Aspnetcore/tree/master/Blazor/Routing 
+ 
