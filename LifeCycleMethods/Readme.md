@@ -1,5 +1,5 @@
 ### Introduction
-The [component] (https://github.com/jignesht24/Blazor/tree/master/Create%20Component) in Blazor derived from BlazorComponent class. The BlazorComponent class contains some specific life cycle method. Current version of the Blazor (0.3.0) has some limited life cycle methods. 
+The [component](https://github.com/jignesht24/Blazor/tree/master/Create%20Component) in Blazor derived from BlazorComponent class. The BlazorComponent class contains some specific life cycle method. Current version of the Blazor (0.3.0) has some limited life cycle methods. 
 
 Please remember that Blazor is an experimental project and not yet in Production. This article is only valid of Blazor 0.3.0.
 
