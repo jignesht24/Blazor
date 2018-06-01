@@ -138,5 +138,3 @@ nestestedLayout.cshtml
 ```
 #### Summary
 Layout page help us to reduced duplicate code in our application and help us to make look and fill consistence through out application. It is very similar to Layout in ASP.net MVC application. Blazor is also supports the nested layout. 
-
-You can view or download the source code from the GitHub link here. https://github.com/jignesht24/Blazor/tree/master/Create%20Component 
