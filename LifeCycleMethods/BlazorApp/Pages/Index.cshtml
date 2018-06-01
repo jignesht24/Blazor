@@ -1,0 +1,42 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+<button class="btn btn-primary" onclick="@ButtonClick">Click me</button>
+
+@functions {
+
+    protected override void OnInit()
+    {
+        Console.WriteLine("OnInit");
+    }
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("OnParametersSet");
+    }
+
+    protected override void OnAfterRender()
+    {
+        Console.WriteLine("OnAfterRender");
+    }
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("ShouldRender");
+        var renderUI = true;
+
+        return renderUI;
+    }
+    public override void SetParameters(ParameterCollection parameters)
+    {
+        Console.WriteLine("SetParameters");
+        base.SetParameters(parameters);
+    }
+
+    void ButtonClick()
+    {
+        Console.WriteLine("Button click");
+    }
+}
+

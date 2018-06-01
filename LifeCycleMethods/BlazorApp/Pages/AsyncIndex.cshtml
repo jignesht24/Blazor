@@ -1,0 +1,28 @@
+﻿@page "/async"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+<button class="btn btn-primary" onclick="@ButtonClick">Click me</button>
+
+@functions {
+    protected override async Task  OnInitAsync()
+    {
+        Console.WriteLine("OnInitAsync ");
+    }
+    protected override async Task  OnParametersSetAsync()
+    {
+        Console.WriteLine("OnParametersSetAsync");
+    }
+
+    protected override async Task OnAfterRenderAsync()
+    {
+        Console.WriteLine("OnAfterRenderAsync");
+    }
+
+    void ButtonClick()
+    {
+        Console.WriteLine("Button click");
+    }
+}
+
