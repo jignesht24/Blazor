@@ -64,16 +64,18 @@ Example
 @page "/testRoute/{Parameter1}"
 
 @functions {
+    [Parameter]
     public string Parameter1 { get; set; }
 }
 ```
-In blazor, the parameters are directly assigned to properties of the component. The parameter name must match with name of the property on the component. Same as ASP.net MVC, we can also define parameter constraints by placing a constraint name after the parameter name separated by a colon. Using parameter constraints, we can bind specific type to the parameter value.
+In blazor, the parameters are directly assigned to properties of the component. The parameter name must match with name of the property on the component. In version 0.3.0, Parameter attribute has been introduced. This attribute must use to define parameter.  Same as ASP.net MVC, we can also define parameter constraints by placing a constraint name after the parameter name separated by a colon. Using parameter constraints, we can bind specific type to the parameter value.
 
 Example
 ```
 @page "/constrains/{Parameter1:int}"
 @functions {
-    public int Parameter1 { get; set; }
+    [Parameter]
+    int Parameter1 { get; set; }
 }
 ```
 So, If someone tried to navigate to this component with string parameter value then the router would not able to match the route hence throw the exception.
