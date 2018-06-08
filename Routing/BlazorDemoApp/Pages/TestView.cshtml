@@ -20,10 +20,11 @@
 
 @functions {
 
+    [Parameter]
+    string Name { get; set; }
 
-    public string Name { get; set; }
-
-    public int Parameter1 { get; set; }
+    [Parameter]
+    int Parameter1 { get; set; }
 
     void ButtonClicked()
     {
