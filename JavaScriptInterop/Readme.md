@@ -39,7 +39,6 @@ index.html
 </body>
 </html>
 ```
-Output
 ![alt text](img/1.png "")
 
 We can also pass the parameters to the JavaScript function using second argument of InvokeAsync method. This will accept value as objects. In the following Example, I have pass my name as JavaScript function argument.
@@ -94,7 +93,7 @@ demo.cshtml
 ```
 <button class="btn btn-success" onclick="CalledCSFunction()">Call Java Script</button>
 ```
-Output
+
 ![alt text](img/3.gif "")
 
 We can also pass the parameters to the C# (.net) function using third argument of DotNet.invokeMethodAsync method. This will accept value as objects. In the following Example, I have pass my name as JavaScript function argument.
@@ -123,7 +122,7 @@ demo.cshtml
 ```
 <button class="btn btn-success" onclick="CalledCSFunctionWithParameter()">Call Java Script (with parameter)</button>
 ```
-Output
+
 ![alt text](img/4.gif "")
 
 In preceding, I have called static C# methods from JavaScript function. The Blazor 0.5.0 allows to call .net instance method from the JavaScript. To do this, we need to pass the instance of class to the JavaScript by using DotNetObjectRef class instance. This class instance pass the our object instance to the JavaScript and we can invoke the method using passed object instance using the invokeMethod or invokeMethodAsync functions. 
@@ -161,7 +160,7 @@ function CallInstanceMethod() {
     });
 }
 ```
-Output
+
 ![alt text](img/5.gif "")
 
 If we call C# function from JavaScript and update any C# variable / property that visible on screen, the the change not getting reflected. Blazor component use "StateHasChanged" method to update the UI component. But this function cannot be called in static method and instance method are in different class. This can be achieved by using instance method and pass object of current component to that instance. 
@@ -219,7 +218,6 @@ Demo.cshtml
 @message
 ```
 
-Output
 ![alt text](img/6.gif "")
 
 ### Summary
