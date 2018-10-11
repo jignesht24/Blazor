@@ -1,0 +1,36 @@
+﻿@page "/example3"
+
+@inject HttpClient Http
+@using TemplatedComponents.Model;
+
+@{
+    RenderFragment template = @<p>Hello C# Corner Reader!</p>;
+    RenderFragment<MyItems> ItemTemplate = (item) => @<li>@item.Name.</li>;
+}
+
+@if (data == null)
+{
+    <p><em>Loading...Test</em></p>
+}
+else
+{
+
+@template
+<ul>
+    @foreach (var item in data)
+    {
+        @ItemTemplate(item)
+    }
+</ul>
+}
+
+
+
+@functions {
+    MyItems[] data;
+
+    protected override async Task OnInitAsync()
+    {
+        data = await Http.GetJsonAsync<MyItems[]>("sample-data/test.json");
+    }
+}

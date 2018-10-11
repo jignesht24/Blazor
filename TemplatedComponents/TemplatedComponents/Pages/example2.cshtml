@@ -1,0 +1,28 @@
+﻿@page "/example2"
+
+@inject HttpClient Http
+@using TemplatedComponents.Model;
+@if (data == null)
+{
+    <p><em>Loading...Test</em></p>
+}
+else
+{
+    <ui>
+        <GenericComponent Items="@data" TItem="MyItems">
+            <ItemTemplate>
+                <li>
+                    @context.Name
+                </li>
+            </ItemTemplate>
+        </GenericComponent>
+    </ui>
+}
+@functions {
+    MyItems[] data;
+
+    protected override async Task OnInitAsync()
+    {
+        data = await Http.GetJsonAsync<MyItems[]>("sample-data/test.json");
+    }
+}

@@ -1,0 +1,34 @@
+﻿@page "/"
+
+@inject HttpClient Http
+@using TemplatedComponents.Model
+@if (data == null)
+{
+<p><em>Loading...Test</em></p>
+}
+else
+{
+<GridTemplate Items="@data">
+    <Header>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+    </Header>
+    <Row>
+        <td>@context.Id</td>
+        <td>@context.Name</td>
+        <td>@context.Description</td>
+    </Row>
+    <Footer>
+        <td colspan="3">This is a grid footer</td>
+    </Footer>
+</GridTemplate>
+}
+@functions {
+    MyItems[] data;
+
+    protected override async Task OnInitAsync()
+    {
+           data = await Http.GetJsonAsync<MyItems[]>("sample-data/test.json");
+    }
+}

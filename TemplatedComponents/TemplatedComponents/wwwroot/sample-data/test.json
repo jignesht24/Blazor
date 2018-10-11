@@ -1,0 +1,12 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Watch",
+    "Description": "Simple wearables watch"
+  },
+  {
+    "Id": 2,
+    "Name": "Monitor",
+    "Description": "14 inch monitor"
+  }
+]

@@ -1,0 +1,13 @@
+﻿@typeparam TItem
+
+@foreach (var item in Items)
+{
+    @ItemTemplate(item)
+}
+
+@functions {
+    [Parameter] 
+    RenderFragment<TItem> ItemTemplate { get; set; }
+    [Parameter] 
+    IReadOnlyList<TItem> Items { get; set; }
+}
