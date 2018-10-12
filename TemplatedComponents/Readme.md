@@ -164,6 +164,8 @@ else
     }
 }
 ```
+![alt text](img/2.png "")
+
 ### Razor templates
 We can also defined render fragment using Razor template syntax. We can use the Razor template to define RenderFragment and RenderFragment<T> values. The templated components can be render using Razor template with argument or rendered directly.
 ```
@@ -201,6 +203,8 @@ else
     }
 }
 ```
+![alt text](img/3.png "")
+
 ### Summary
 
 The templated component are supported by Blazor. It is component which accept one or more UI template as parameters and these parameters can be used to component rendering. It allows us to write high-level reusable components. Using templated component, we can write the generic or more reusable component.
