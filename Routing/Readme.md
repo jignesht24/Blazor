@@ -1,187 +1,177 @@
-### Introduction
-
-A Route is a URL pattern and Routing is a pattern matching process that monitors the requests and determines what to do with each request. 
-
-Blazor provides client-side router. As compare with Angular router, it has some limited feature. The Microsoft.AspNetCore.Blazor.Routing.Router class provides Routing in Blazor. At the time of initialization, Blazor need assembly that contains the routing i.e. using following code, the router is configured in Blazor application. It is configured in App.cshtml file.
+## Introduction
+ 
+A Route is a URL pattern and Routing is a pattern matching process that monitors the requests and determines what to do with each request.
+ 
+Blazor server app use ASP.net Core Endpoint Routing. Using MapBlazorHub extension method of endpoint routing, ASP.net Core is start to accept the incoming connection for Blazor component. The Blazor client app provides the client-side Routing. The router is configured in Blazor client app in App.cshtml file.
+ 
+Blazor Client app
 ```
-<Router AppAssembly=typeof(Program).Assembly />
+<Router AppAssembly="@typeof(Program).Assembly"/>  
 ```
-
-Internally, Blazor's router find all the classes that implement Microsoft.AspNetCore.Blazor.Components.IComponent interface in the specified in above code.
-
-#### @page Attribute/directive
-There is only way to define the routing in Blazor using @page directive. In MVC application, we can define routing using multiple ways such as Routing attribute and add value to router table. Each component in Blazor must specify route template using @page directive. The @page directives are internally converted into RouteAttribute when template compile.
-
-Example
+Blazor Server app 
 ```
-@page "/testRoute"
-<h2>Test App</h2>
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)  
+{  
+....  
+....  
+....  
+  
+    app.UseRouting();  
+  
+    app.UseEndpoints(endpoints =>  
+    {  
+        endpoints.MapBlazorHub();  
+        endpoints.MapFallbackToPage("/_Host");  
+    });  
+}  
 ```
-In Blazor, Component can have multiple routes. If we required that component can render from multiple route value, we need to define all route with multiple @page directives.   
-
-Example
+The Blazor Server app allows to set fallback route. It operates with low priority in routing matching. The fallback route is only considered when other routes are not matched. The fallback route is usually defined in _Host.cshtml component.
+ 
+### @page directive
+ 
+Using @page directive, you can define the routing in Blazor component. The @page directives are internally converted into RouteAttribute when template is compiled.
 ```
-@page "/testPage"
-@page "/otherPage"
-<h2>Test App</h2>
+@page "/route1"  
 ```
-If our component has no template i.e. component is written in pure C# class, we can define routing using RouteAttribute.
-
-Example
+In Blazor, Component can have multiple routes. If we require that component can render from multiple route values, we need to define all routes with multiple @page directives.
 ```
-using Microsoft.AspNetCore.Blazor.Components;
-using System;
-
-namespace BlazorDemoApp
-{
-    [Route("/test3")]
-    public class Class : IComponent
-    {
-        public void Init(RenderHandle renderHandle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetParameters(ParameterCollection parameters)
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+@page "/multiple"  
+@page "/multiple1"  
 ```
-Alternatively, we can use BlazorComponent class to create component using C# code.
+If you have defined class only component, you can use RouteAttribute.
 ```
-public class MyClass : BlazorComponent
-{
-       
-}
+using Microsoft.AspNetCore.Components;  
+  
+namespace BlazorServerApp.Pages  
+{  
+    [Route("/classonly")]  
+    public class ClassOnlyComponent: ComponentBase  
+    {  
+       ...  
+    }  
+}  
 ```
-#### Handle Parameter in Route Template
-Route may have parameter. The parameters can be defined using curly braces with in routing template in both @page directive or RouteAttribute. 
-
-Example  
+### Route Template
+ 
+The Router mechanism allows to define the routing for each component. The route template is defined in App.razor file. Here, we can define default layout page and default route data.
 ```
-@page "/testRoute/{Parameter1}"
-
-@functions {
-    [Parameter]
-    public string Parameter1 { get; set; }
-}
+<Router AppAssembly="@typeof(Program).Assembly">  
+    <Found Context="routeData">  
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />  
+    </Found>  
+    <NotFound>  
+        <LayoutView Layout="@typeof(MainLayout)">  
+            <p>Sorry, there's nothing at this address.</p>  
+        </LayoutView>  
+    </NotFound>  
+</Router>  
 ```
-In blazor, the parameters are directly assigned to properties of the component. The parameter name must match with name of the property on the component. In version 0.3.0, Parameter attribute has been introduced. This attribute must use to define parameter.  Same as ASP.net MVC, we can also define parameter constraints by placing a constraint name after the parameter name separated by a colon. Using parameter constraints, we can bind specific type to the parameter value.
-
-Example
+In above code, three components are defined under Router component: Found, NotFound and RouteView. The RouteView component receive the route data and default layout. Blazor routing mechanism render the Found component, if any route matched else render NotFound component. The NotFound component allows us to provide custom message when route or content not found.
+ 
+### Handle Parameter in Route Template
+ 
+Route may have parameter. The parameters can be defined using curly braces within routing template in both @page directive or RouteAttribute. The route parameters are automatically bind with component parameters by matching the name. This matching is case insensitive.
 ```
-@page "/constrains/{Parameter1:int}"
-@functions {
-    [Parameter]
-    int Parameter1 { get; set; }
-}
+<h3>Route Constraints Example</h3>  
+@page "/routepara/{Name}"  
+  
+<h4>Name : @Name </h4>  
+  
+@code {  
+    [Parameter]  
+    public string Name { get; set; }  
+}  
 ```
-So, If someone tried to navigate to this component with string parameter value then the router would not able to match the route hence throw the exception.
-
-![alt text](img/1.png "")
-
-#### Linking Pages
-We can define links as HTML anchor tag. There are two ways to links pages in Blazor.
-* Using Anchor - that we normally used in HTML
-* Using NavLink - This is introduced in Blazor
-
-Example
+Current version of Blazor does not supports the optional parameter , so you must pass parameter in above example.
+ 
+### Route constraints
+ 
+The Blazor routing is also allows Route constraints. It enforces type matching between route parameter and route data. Current version of Blazor supports few route constraints but might supports many more route constraints in future.
 ```
-<a href="/example1">Navigation Using Anchor tag</a><br />
-<NavLink href="/example2">Navigation Using NavLink</NavLink><br />
+<h3>Route Constraints Example</h3>  
+@page "/routecons/{Id:guid}"  
+  
+<h4>Id : @Id </h4>  
+  
+@code {  
+    [Parameter]  
+    public Guid Id { get; set; }  
+}  
 ```
-Blazor introduced NavLink tag helper. It is an alternative of HTML anchor tag. It sets the active CSS class automatically if the href matches the current URL.
+Following route constraints are supported by Blazor 
 
-#### Programmatically navigate one component to another component
-We can also navigate from one component to another component by using IUriHelper. This helper has many methods. Using "NavigateTo" method, we can navigate from one component to another. In order to use it, we need to inject services of IUriHelper to our component. We can inject the service using @inject directive in cshtml file or using inject attribute in C# code.
+| Constraint | Invariant culture matching | Example |
+| ---------- | ---------------------------| ------- |
+| int | Yes | {id:int} | 
+| long | Yes | {id:long} | 
+| float | Yes | {mrp:float} | 
+| double | Yes | {mrp:double} | 
+| decimal | Yes | {mrp:decimal} | 
+| guid | No | {id:guid} | 
+| bool | No | {enabled:bool} | 
+| datetime | Yes | {birthdate:datetime} | 
 
-Example
+NavLink Component
+ 
+Blazor provides NavLink component that generate HTML hyperlink element and it handle the toggle of active CSS class based on NavLink component href match with current URL.
+ 
+There are two options for assign to Match attribute of NavLink component
+* NavLinkMatch.All: Active when it matches the entire current URL
+* NavLinkMatch.Prefix: It is a default option. It active when it matches any prefix of the current URL
+The NavLink component render as the anchor tag. You can also include the target attribute.
+ 
+Programmatically navigate one component to another component
+ 
+Blazor is also allow to navigate from one component to another component programmatically using Microsoft.AspNetCore.Components.NavigationManager. The NavigationManager service provides following events and properties.
+
+| Event / Method | Description |
+| ---------- | ---------------------------|
+| NavigateTo | It navigates to specified URI. It takes parameter \"forceload\", if it parameter is set to true, client-side routing is bypassed and the browser is forced to load new page | 
+| ToAbsoluteUri |  It converts relative URI to absolute URI |
+| ToBaseRelativePath | Returns relative URI with base URI prefix |
+| NotifyLocationChanged | This event is fired when browser location has changed |
+| EnsureInitialized | This method allows derived class to lazy self-initialized |
+| Initialize | This method set base URI and current URI before they are used |
+| NavigateToCore | Navigate to specified URI. This is abstract method hence it must implement in derived class |
+
+| Properties | Description |
+| ---------- | ---------------------------|
+| BaseUri | Get and set the current base URI. It allows represent as an absolute URI end with slash | 
+| Uri  | Get and set the current URI. It allows represent as an absolute URI | 
+
+To navigate URI using NavigationManager service, you must inject the service using @inject directive in component. Using the NavigateTo method, you can navigate from one component to another component.
 ```
-@using Microsoft.AspNetCore.Blazor.Services;
-
-@inject IUriHelper UriHelper
-
-<h3>Routing Test</h3>
-
-<button onclick=@ButtonClicked>Programatically Change Routing</button>
-
-@functions {
-    void ButtonClicked()
-    {
-        UriHelper.NavigateTo("example3");
-    }
-}
+@page "/navexample"  
+@inject NavigationManager UriHelper  
+<h3>Navigation Example</h3>  
+Navigate to other component <a href="" @onclick="NavigatetoNextComponent">Click here</a>  
+  
+@code {  
+    void NavigatetoNextComponent()  
+    {  
+        UriHelper.NavigateTo("newcomponent");  
+    }  
+}  
 ```
-C# only Component
+You can also capture query string or query parameter value when redirect to another component. Using QueryHelpers class, we can access query string and query parameter of the component. The QueryHelpers.ParseQuery method extract the value from the query string. This method returns the dictionary of type Dictionary<string, StringValues> that contains all query parameter of the route.
 ```
-using Microsoft.AspNetCore.Blazor.Components;
-using Microsoft.AspNetCore.Blazor.Services;
-using System;
-
-namespace BlazorDemoApp
-{
-    [Route("/test3/{parameter1}")]
-    public class MyClass : BlazorComponent
-    {
-        [Inject]
-        public IUriHelper UriHelper { get; set; }
-        public void Init(RenderHandle renderHandle)
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+<h3>New Component with Parameter</h3>  
+@page "/newcomponentwithpara"  
+@inject NavigationManager UriHelper  
+@using Microsoft.AspNetCore.WebUtilities;  
+  
+<p> Parameter value : @Name</p>  
+  
+@code {  
+    public string Name { get; set; }  
+    protected override void OnInitialized()  
+    {  
+        var uri = UriHelper.ToAbsoluteUri(UriHelper.Uri);  
+        Name = QueryHelpers.ParseQuery(uri.Query).TryGetValue("name", out var type) ? type.First() : "";  
+    }  
+}  
 ```
-#### Accessing Query Parameters
-Most common method is used to pass data from UI to code behind or service is Query String or Query Parameter. We can add query parameter using IUriHelper service. To accessing query parameter, we required to install package "Microsoft.AspNetCore.WebUtilities" from NuGet. Using following command and NuGet package manager, we can install said nuget package in our project.  
-```
-PM> Install-Package Microsoft.AspNetCore.WebUtilities -Version 2.0.3 
-```
-Using QueryHelpers.ParseQuery.TryGetValue method we can access the query parameter.
-
-Example
-```
-@page "/accessQueryParameter"
-@using Microsoft.AspNetCore.Blazor.Services;
-
-@inject IUriHelper UriHelper
-
-<h3>Accessing Query Parameter</h3>
-
-<p>
-    Parameter Value: @Name
-</p>
-
-
-@functions {
-
-
-   private string Name { get; set; }
-
-    protected override void OnInit()
-    {
-        GetName();
-        UriHelper.OnLocationChanged += OnLocationChanges;
-    }
-
-    private void OnLocationChanges(object sender, string location) => GetName();
-
-    private void GetName()
-    {
-        var uri = new Uri(UriHelper.GetAbsoluteUri());
-        Name = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("name", out var type) ? type.First() : "";
-        StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        UriHelper.OnLocationChanged -= OnLocationChanges;
-    }
-}
-```
-![alt text](img/2.png "")
-
 ### Summary
-Blazor provides client-side router. As compare with Angular router, it has some limited feature. Currently, it provides almost all feature that we required to develop application.  
+ 
+Blazor provides rich routing. Blazor server app use ASP.net Core Endpoint Routing. It provides almost all features including route parameter, route constraints. It also provides built-in component like NavLink that helps to generate menu item. It provides built-in services that help us to navigate from one component to another component. However, there are some limitation like route parameter does not support optional parameter and it supports limited number of route constraints.
+
