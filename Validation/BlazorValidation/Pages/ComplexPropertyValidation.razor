@@ -1,0 +1,39 @@
+﻿@page "/complex"
+@using BlazorValidation.Data;
+
+<h1>Add/Edit Employee</h1>
+
+<EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+    <ObjectGraphDataAnnotationsValidator  />
+    <ValidationSummary />
+    <div class="row content">
+        <div class="col-md-2"><label for="Name">Name</label></div>
+        <div class="col-md-3"><InputText id="name" @bind-Value="model.Employee.Name" /></div>
+    </div>
+    <div class="row content">
+        <div class="col-md-2"><label for="EmailAddress">Email</label></div>
+        <div class="col-md-3"><InputText id="EmailAddress" @bind-Value="model.Employee.EmailAddress" /></div>
+    </div>
+    <div class="row content">
+        <div class="col-md-2"><label for="PhoneNumer">Phone</label></div>
+        <div class="col-md-3"><InputText id="PhoneNumer" @bind-Value="model.Employee.PhoneNumer" /></div>
+    </div>
+    <div class="row content">
+        <div class="col-md-2"><label for="CreditCardNumer">Credit Card Numer</label></div>
+        <div class="col-md-3"><InputText id="CreditCardNumer" @bind-Value="model.Employee.CreditCardNumer" /></div>
+    </div>
+    <div class="row content">
+        <button type="submit">Submit</button>
+    </div>
+
+</EditForm>
+
+@code {
+        ComplexModel model = new ComplexModel { Employee = new EmployeeModel() };
+
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+}

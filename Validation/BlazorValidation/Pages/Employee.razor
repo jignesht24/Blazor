@@ -1,0 +1,37 @@
+﻿@page "/editemployee"
+@using BlazorValidation.Data;
+
+<h1>Add/Edit Employee</h1>
+
+<EditForm Model="@employee" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="row content">
+        <div class="col-md-2"><label for="Name">Name</label></div>
+        <div class="col-md-3"><InputText id="name" @bind-Value="employee.Name" /></div>
+    </div>
+    <div class="row content">
+        <div class="col-md-2"><label for="EmailAddress">Email</label></div>
+        <div class="col-md-3"><InputText id="EmailAddress" @bind-Value="employee.EmailAddress" /></div>
+    </div>
+    <div class="row content">
+        <div class="col-md-2"><label for="PhoneNumer">Phone</label></div>
+        <div class="col-md-3"><InputText id="PhoneNumer" @bind-Value="employee.PhoneNumer" /></div>
+    </div>
+    <div class="row content">
+        <div class="col-md-2"><label for="CreditCardNumer">Credit Card Numer</label></div>
+        <div class="col-md-3"><InputText id="CreditCardNumer" @bind-Value="employee.CreditCardNumer" /></div>
+    </div>
+    <div class="row content">
+        <button type="submit">Submit</button>
+    </div>
+
+</EditForm>
+
+@code {
+    EmployeeModel employee = new EmployeeModel();   
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+}

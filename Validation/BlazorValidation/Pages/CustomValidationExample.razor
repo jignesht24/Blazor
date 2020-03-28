@@ -1,0 +1,26 @@
+﻿@page "/custom"
+@using BlazorValidation.Data;
+
+<h1>Add/Edit Employee</h1>
+
+<EditForm Model="@dummy" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="row content">
+        <div class="col-md-2"><label for="Name">Name</label></div>
+        <div class="col-md-3"><InputNumber id="name" @bind-Value="dummy.TestProperty" /></div>
+        <div class="col-md-5"><ValidationMessage For="@(() => dummy.TestProperty)" /> </div>
+    </div>
+
+    <div class="row content">
+        <button type="submit">Submit</button>
+    </div>
+
+</EditForm>
+
+@code {
+    TestClass dummy = new TestClass();
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+}
