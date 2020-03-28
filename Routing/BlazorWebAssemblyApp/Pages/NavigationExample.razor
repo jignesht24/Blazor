@@ -1,0 +1,13 @@
+﻿@page "/navexample"
+
+@inject NavigationManager UriHelper
+<h3>Navigation Example</h3>
+
+Navigate to other component <a href="" @onclick="NavigatetoNextComponent">Click here</a>
+
+@code {
+    void NavigatetoNextComponent()
+    {
+        UriHelper.NavigateTo("newcomponent", true);
+    }
+}

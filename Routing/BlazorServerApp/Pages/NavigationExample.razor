@@ -1,0 +1,19 @@
+﻿@page "/navexample"
+
+@inject NavigationManager UriHelper
+<h3>Navigation Example</h3>
+
+Navigate to other component <a href="" @onclick="NavigatetoNextComponent">Click here</a>
+<br />
+Navigate to other component with parameter <a href="" @onclick="NavigatetoNextComponentWP">Click here</a>
+
+@code {
+    void NavigatetoNextComponent()
+    {
+        UriHelper.NavigateTo("newcomponent");
+    }
+    void NavigatetoNextComponentWP()
+    {
+        UriHelper.NavigateTo("newcomponentwithpara?name=jignesh");
+    }
+}

@@ -1,0 +1,15 @@
+﻿<h3>New Component with Parameter</h3>
+@page "/newcomponentwithpara"
+@inject NavigationManager UriHelper
+@using Microsoft.AspNetCore.WebUtilities;
+
+<p> Parameter value : @Name</p>
+
+@code {
+    public string Name { get; set; }
+    protected override void OnInitialized()
+    {
+        var uri = UriHelper.ToAbsoluteUri(UriHelper.Uri);
+        Name = QueryHelpers.ParseQuery(uri.Query).TryGetValue("name", out var type) ? type.First() : "";
+    }
+}

@@ -1,0 +1,9 @@
+﻿<h3>Route Constraints Example</h3>
+@page "/routepara/{Name}"
+
+<h4>Name : @Name </h4>
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+}

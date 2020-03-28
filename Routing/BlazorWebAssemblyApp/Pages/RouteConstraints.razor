@@ -1,0 +1,9 @@
+﻿<h3>Route Constraints Example</h3>
+@page "/routecons/{Id:guid}"
+
+<h4>Id : @Id </h4>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+}
