@@ -1,0 +1,20 @@
+﻿@page "/mouseclick"
+
+<h3>Mouse Coordinates</h3>
+<button class="btn btn-primary" @onclick="MouseClick">Button 1</button>
+
+<br />
+<br />
+
+<button class="btn btn-primary" @onclick="MouseClick">Button 2</button>
+
+<p>@mouseCoordinatesString</p>
+
+@code {
+    private string mouseCoordinatesString;
+
+    private void MouseClick(MouseEventArgs e)
+    {
+        mouseCoordinatesString = $"Mouse coordinates: {e.ScreenX}:{e.ScreenY}";
+    }
+}

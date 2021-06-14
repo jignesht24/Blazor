@@ -1,0 +1,30 @@
+﻿@page "/lambdaexpressions"
+
+<h3>Lambda Expression Example</h3>
+
+<p> EXample 1</p>
+<button @onclick="@(e => currentCount++)">
+    Click Me
+</button>
+<p> Current Count:@currentCount </p>
+
+<p> EXample 2</p>
+
+<button class="btn btn-primary" @onclick="@(e => MouseClick(e, 1))">Button 1</button>
+
+<br />
+<br />
+
+<button class="btn btn-primary" @onclick="@(e => MouseClick(e, 2))">Button 2</button>
+<p>@mouseCoordinatesString</p>
+
+@code {
+    private int currentCount = 0;
+
+    private string mouseCoordinatesString;
+
+    private void MouseClick(MouseEventArgs e, int buttonNumber)
+    {
+        mouseCoordinatesString = $"Mouse coordinates of button {buttonNumber}: {e.ScreenX}:{e.ScreenY}";
+    }
+}

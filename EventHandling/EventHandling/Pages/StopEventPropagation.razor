@@ -1,0 +1,37 @@
+﻿@page "/stopeventpropagation"
+<h3>Stop Event Propagation</h3>
+
+<input @bind="stopPropagation" type="checkbox" name="stopPropagation" />
+<label for="stopPropagation"> Stop Propagation</label>
+<br>
+
+<div class="m-1 p-1 border" id="primary-div" @onclick="OnClickParentDiv">
+    <p>
+        Parent Div
+    </p>
+    <div class="m-1 p-1 border" @onclick="OnClickChildDiv">
+        Child div doesn't stop event propagation when clicked.
+    </div>
+
+    <div class="m-1 p-1 border" @onclick="OnClickChildDiv"
+         @onclick:stopPropagation="stopPropagation">
+        Child div stops event propagation when clicked.
+    </div>
+</div>
+
+<p>
+    @message
+</p>
+
+@code {
+
+    private bool stopPropagation= true;
+
+    private string message;
+
+    private void OnClickParentDiv() =>
+        message = $"The parent div was Clicked. {DateTime.Now}";
+
+    private void OnClickChildDiv() =>
+        message = $"A child div was Clicked. {DateTime.Now}";
+}

@@ -1,0 +1,19 @@
+﻿@page "/eventcallback"
+
+<h3>Parent Component</h3>
+
+<br />
+<br />
+
+<ChildComponent OnClickCallback="@EventFromChild" />
+
+<p>@message</p>
+
+@code {
+    private string message;
+
+    private void EventFromChild(MouseEventArgs e)
+    {
+        message = $"Mouse coordinates of child component button - ({e.ScreenX}:{e.ScreenY})";
+    }
+}

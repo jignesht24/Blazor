@@ -1,0 +1,22 @@
+﻿@page "/preventDefault"
+
+<h3>Prevent Default Example</h3>
+
+<p>
+    
+    <a href="https://www.c-sharpcorner.com/"
+       @onclick="KeyHandler"
+       @onclick:preventDefault="true">
+        Click Here
+    </a>
+</p>
+<p>@count</p>
+
+@code {
+    private int count = 0;
+
+    private void KeyHandler()
+    {
+        count++;
+    }
+}
