@@ -45,7 +45,7 @@ Mouse | MouseEventArgs | onclick, oncontextmenu, ondblclick, onmousedown, onmous
 Mouse pointer | PointerEventArgs | onpointerdown, onpointerup, onpointercancel, onpointermove, onpointerover, onpointerout, onpointerenter, onpointerleave, ongotpointercapture, onlostpointercapture
 Mouse wheel | WheelEventArgs | onwheel, onmousewheel
 Progress | ProgressEventArgs | onabort, onload, onloadend, onloadstart, onprogress, ontimeout
-Touch | TouchEventArgs	ontouchstart, ontouchend, ontouchmove, ontouchenter, ontouchleave, ontouchcancel
+Touch | TouchEventArgs|ontouchstart, ontouchend, ontouchmove, ontouchenter, ontouchleave, ontouchcancel
 
 
 ##### Example
