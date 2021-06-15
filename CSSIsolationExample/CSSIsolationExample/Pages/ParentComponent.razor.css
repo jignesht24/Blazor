@@ -1,0 +1,8 @@
+﻿p {
+    color: red
+}
+
+::deep div {
+    color:orange;
+    font-weight:bold;
+}
