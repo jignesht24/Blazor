@@ -5,7 +5,7 @@ CSS (Cascading Style Sheets) is powerful standard for user (developer) to define
 
 The CSS isolation in Blazor component is by default enable and to use it create ".razor.css" file matching with component name. This is also referring as a scoped CSS file. For example, if you want to create scoped CSS for "ComponentWiseCss.razor" component then create "ComponentWiseCss.razor.css" file and define component  related CSS.
 
-![alt text](img/structureCssFile.png "")
+![alt text](images/structureCssFile.png "")
 
 The style defined in ComponentWiseCss.razor.css is only applied to the rendering of ComponentWiseCss.razor page. It is not applied to the other razor pages.
 
@@ -51,7 +51,7 @@ body {
 ```
 
 Output
-![alt text](img/example1.png "")
+![alt text](images/example1.png "")
 
 ### CSS isolation bundling
 The CSS isolation happen at build time. The Blazor engine rewrites the CSS and HTML to match markup to component. The rewritten CSS style are bundled into one and saved as static resource. The stylesheet references inside the <head> tag of wwwroot/index.html (Blazor WebAssembly) or Pages/_Host.cshtml (Blazor Server). The name of the stylesheet is in format "{ASSEMBLY NAME}.styles.css" here, {ASSEMBLY NAME} is project name. 
@@ -75,7 +75,7 @@ body[b-qvelpzvlyq] {
     font-weight: bold;
 }
 ```
-![alt text](img/example2.png "")
+![alt text](images/example2.png "")
 
 ### Cascading CSS style to Child Component
 The CSS isolation is only applied to the component level by default but you can extend it to the child component using "::deep" attribute in CSS file. This attribute is Blazor attribute so, it only understands and parse by Blazor engine. When "::deep" attribute used in CSS file, Blazor engine also applied scope identifier to all descendants of component. 
@@ -128,7 +128,7 @@ p {
 }
 ```
 Output
-![alt text](img/Childcomponentsupport.png "")
+![alt text](images/Childcomponentsupport.png "")
 
 The Sass and Less are well known CSS preprocessor. They are useful for improving CSS development. They provide many features such as variables, nesting, inheritance, modules and mixins. The CSS isolation does not natively support the CSS preprocessor but you can integrate CSS preprocessor to Blazor project by compile preprocessor before Blazor engine rewrites the CSS selectors during the build process. For example, you can perform preprocessor compilation  on Before build task in Visual Studio.
 
